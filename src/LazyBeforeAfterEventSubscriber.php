@@ -118,10 +118,10 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
         if ($withAction) {
             $methodName .= ucfirst($callback[1]);
         }
-        $newCallBack = [
+        $newCallBack = array(
             $object,
             $methodName
-        ];
+        );
         if (!method_exists($object, $methodName)) {
             return null;
         }
@@ -135,10 +135,10 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
      */
     private function handleBeforeCallBack(GetResponseEvent $event, $callBack)
     {
-        $parameters = [
+        $parameters = array(
             $event->getRequest(),
             $this->app
-        ];
+        );
         $response = call_user_func_array($callBack, $parameters);
 
         if ($response instanceof Response) {
@@ -152,11 +152,11 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
      */
     private function handleAfterCallBack(FilterResponseEvent $event, $callBack)
     {
-        $parameters = [
+        $parameters = array(
             $event->getRequest(),
             $event->getResponse(),
             $this->app
-        ];
+        );
         $response = call_user_func_array($callBack, $parameters);
 
         if ($response instanceof Response) {
