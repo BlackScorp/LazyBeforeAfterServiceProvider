@@ -20,7 +20,7 @@ Now you can just add methods like "before", "after","before{MethodName}" and "af
 
 This is the same like
 
-~~~
+~~~ php
 $app->get('/','controller:indexAction')
 ->before(function(){
 //some logic
