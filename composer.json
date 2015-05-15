@@ -1,0 +1,27 @@
+{
+  "name": "blackscorp/lazy-before-after-service-provider",
+  "description": "A service Provider for Silex to call before/after methods automatically",
+  "minimum-stability": "stable",
+  "license": "Mit",
+  "authors": [
+    {
+      "name": "Vitalij Mik",
+      "email": "cccpmik@gmail.com"
+    },
+    {
+      "name": "Contributors",
+      "homepage": "https://github.com/BlackScorp/LazyBeforeAfterServiceProvier/contributors"
+    }
+  ],
+  "require": {
+    "silex/silex": "~1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "BlackScorp\\Silex\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {"BlackScorp\\Silex\\Test\\": "test/"}
+  }
+}
