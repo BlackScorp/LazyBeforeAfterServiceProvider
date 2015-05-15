@@ -93,16 +93,16 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return [
-            KernelEvents::REQUEST => [
-                ['onBefore', 2],
-                ['onBeforeWithAction', 1]
-            ],
-            KernelEvents::RESPONSE => [
-                ['onAfter', 1],
-                ['onAfterWithAction', 2]
-            ]
-        ];
+        return array(
+            KernelEvents::REQUEST => array(
+                array('onBefore',2),
+                array('onBeforeWithAction',1)
+            ),
+            KernelEvents::RESPONSE => array(
+                array('onAfter',1),
+                array('onAfterWithAction',2)
+            )
+        );
     }
 
     private function getCallback(KernelEvent $event, $prefix, $withAction = true)
