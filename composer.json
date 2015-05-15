@@ -2,6 +2,7 @@
   "name": "blackscorp/lazy-before-after-service-provider",
   "description": "A service Provider for Silex to call before/after methods automatically",
   "minimum-stability": "stable",
+  "keywords": ["before","after","Silex"],
   "license": "Mit",
   "authors": [
     {

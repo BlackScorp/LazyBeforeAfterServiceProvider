@@ -1,4 +1,5 @@
 # LazyBeforeAfterServiceProvier
+[![Build Status](https://travis-ci.org/BlackScorp/LazyBeforeAfterServiceProvider.svg)](https://travis-ci.org/BlackScorp/LazyBeforeAfterServiceProvider)
 
 A service Provider for [Silex](http://silex.sensiolabs.org/) to call before/after methods automatically.
 
