@@ -11,7 +11,7 @@ namespace BlackScorp\Silex\Test\Spy;
 
 
 class ControllerWithOrderSpy extends BaseControllerSpy{
-    private $orderIndicator = [];
+    private $orderIndicator = array();
     public function getOrderIndicator(){
         return implode('|',$this->orderIndicator);
     }
