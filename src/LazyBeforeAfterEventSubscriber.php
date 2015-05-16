@@ -39,10 +39,6 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
 
     public function onBeforeWithAction(GetResponseEvent $event)
     {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
-            return;
-        }
-
         $callBack = $this->getCallback($event, 'before');
         if (!$callBack) {
             return;
@@ -53,10 +49,6 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
 
     public function onBefore(GetResponseEvent $event)
     {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
-            return;
-        }
-
         $callBack = $this->getCallback($event, 'before', false);
         if (!$callBack) {
             return;
@@ -95,12 +87,12 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
     {
         return array(
             KernelEvents::REQUEST => array(
-                array('onBefore',2),
-                array('onBeforeWithAction',1)
+                array('onBefore',0),
+                array('onBeforeWithAction',-1)
             ),
             KernelEvents::RESPONSE => array(
-                array('onAfter',1),
-                array('onAfterWithAction',2)
+                array('onAfter',30),
+                array('onAfterWithAction',32)
             )
         );
     }
@@ -110,9 +102,6 @@ class LazyBeforeAfterEventSubscriber implements EventSubscriberInterface
 
         $controller = $event->getRequest()->get('_controller');
         $callback = $this->resolver->resolveCallback($controller);
-        if (!is_array($callback)) {
-            return null;
-        }
         $object = $callback[0];
         $methodName = $prefix;
         if ($withAction) {

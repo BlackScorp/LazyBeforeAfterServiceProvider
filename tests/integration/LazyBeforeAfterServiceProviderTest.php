@@ -13,6 +13,7 @@ use Silex\Application;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use BlackScorp\Silex\Test\Spy;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class LazyBeforeAfterServiceProviderTest extends PHPUnit_Framework_TestCase
 {
@@ -131,6 +132,38 @@ class LazyBeforeAfterServiceProviderTest extends PHPUnit_Framework_TestCase
         });
         $this->executeSilex();
         $this->assertSame('before|beforeIndexAction|indexAction|afterIndexAction|after',$spy->getOrderIndicator());
+    }
+    public function testSubRequestWithBeforeOnly(){
+        $app = $this->app;
+        $spy = new Spy\ControllerWithAllSpy();
+        $app['controller'] = $app->share(function () use ($spy) {
+            return $spy;
+        });
+
+        $request = Request::create('/');
+
+        $this->app['kernel']->handle($request, HttpKernelInterface::SUB_REQUEST);
+
+        $this->assertFalse($spy->beforeCalled());
+        $this->assertFalse($spy->beforeActionCalled());
+        $this->assertFalse($spy->actionCalled());
+        $this->assertFalse($spy->afterActionCalled());
+        $this->assertFalse($spy->afterCalled());
+    }
+
+    public function testResponseInMiddlewares(){
+        $app = $this->app;
+        $spy = new Spy\ControllerWithSymfonyResponseSpy();
+        $app['controller'] = $app->share(function () use ($spy) {
+            return $spy;
+        });
+        $this->executeSilex();
+
+        $this->assertTrue($spy->beforeCalled());
+        $this->assertTrue($spy->beforeActionCalled());
+        $this->assertFalse($spy->actionCalled());
+        $this->assertTrue($spy->afterActionCalled());
+        $this->assertTrue($spy->afterCalled());
     }
 
 }
